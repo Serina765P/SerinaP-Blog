@@ -543,7 +543,7 @@ body::-webkit-scrollbar-track {
 .content iframe {
     display: block;
     margin: 15px auto;
-    max-width: 75%;
+    max-width: 100%;
 }
 .copycode {
     color: #5c6b72;
@@ -795,8 +795,7 @@ hr {
 }
 img,
 video,
-audio,
-iframe {
+audio {
     border-radius: 10px;
 }
 mark {
