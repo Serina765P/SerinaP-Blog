@@ -1,0 +1,220 @@
+/* ===================================
+ * Dark Mode Overrides
+ * Component-level adjustments for dark theme
+ * =================================== */
+
+/* ===================================
+ * Header
+ * =================================== */
+[data-theme="dark"] .md-header.scrolled {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container) 85%, transparent);
+  box-shadow: none;
+  border-bottom-color: var(--md-sys-color-outline-variant);
+}
+
+/* ===================================
+ * Hero
+ * =================================== */
+[data-theme="dark"] .md-hero {
+  border-bottom-color: var(--md-sys-color-outline-variant);
+}
+
+/* ===================================
+ * Post Cards
+ * =================================== */
+[data-theme="dark"] .post-card__date {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* ===================================
+ * Post Navigation
+ * =================================== */
+[data-theme="dark"] .post-nav__item {
+  background: transparent;
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .post-nav__item:hover {
+  background: var(--md-sys-color-surface-container);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* ===================================
+ * Elevated Cards
+ * In dark mode, use outline instead of shadow
+ * =================================== */
+[data-theme="dark"] .md-card--elevated {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: none;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .md-card--elevated:hover {
+  background: var(--md-sys-color-surface-container-highest);
+  box-shadow: none;
+}
+
+/* ===================================
+ * Code Blocks
+ * =================================== */
+[data-theme="dark"] .post-content pre {
+  background: var(--md-sys-color-surface-container);
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .post-content pre code {
+  color: inherit; /* let hljs theme handle colors */
+}
+
+/* Highlight.js: in dark mode, github-dark-dimmed theme is loaded via media toggle */
+
+/* ===================================
+ * Images & Media
+ * =================================== */
+[data-theme="dark"] .post-content img,
+[data-theme="dark"] .post-content video {
+  opacity: 0.9;
+}
+
+[data-theme="dark"] .post-content img:hover,
+[data-theme="dark"] .post-content video:hover {
+  opacity: 1;
+}
+
+/* ===================================
+ * FAB & TOC Panel
+ * =================================== */
+[data-theme="dark"] .md-fab {
+  box-shadow: none;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .md-fab:hover {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .md-toc-fab {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: none;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .md-toc-panel {
+  background: var(--md-sys-color-surface-container);
+}
+
+/* ===================================
+ * Snackbar
+ * =================================== */
+[data-theme="dark"] .md-snackbar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+ * Category Cards
+ * =================================== */
+[data-theme="dark"] .category-card {
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+[data-theme="dark"] .category-card:hover {
+  background: var(--md-sys-color-surface-container);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* ===================================
+ * Scrollbar
+ * =================================== */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--md-sys-color-surface-container-low);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--md-sys-color-outline);
+  border-color: var(--md-sys-color-surface-container-low);
+}
+
+/* ===================================
+ * Tables
+ * =================================== */
+[data-theme="dark"] .post-content tbody tr:hover {
+  background: var(--md-sys-color-surface-container);
+}
+
+/* ===================================
+ * Selection
+ * =================================== */
+[data-theme="dark"] ::selection {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+/* ===================================
+ * Focus
+ * =================================== */
+[data-theme="dark"] a:focus-visible,
+[data-theme="dark"] button:focus-visible {
+  outline-color: var(--md-sys-color-primary);
+}
+
+/* ===================================
+ * Giscus Comments
+ * =================================== */
+[data-theme="dark"] .giscus,
+[data-theme="dark"] .giscus-frame {
+  color-scheme: dark;
+}
+
+/* ===================================
+ * Print Styles
+ * =================================== */
+@media print {
+  .md-header,
+  .md-fab,
+  .md-toc-fab,
+  .md-toc-panel,
+  .md-toc-overlay,
+  .md-theme-toggle,
+  .post-nav,
+  .post-tags,
+  .copy-code-btn,
+  .skip-link {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .post-content a {
+    text-decoration: underline;
+  }
+
+  .post-content a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  .post-content pre {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+
+  .post-content img {
+    page-break-inside: avoid;
+  }
+
+  .post-content h1,
+  .post-content h2,
+  .post-content h3 {
+    page-break-after: avoid;
+  }
+}

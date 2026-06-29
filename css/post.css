@@ -1,0 +1,1162 @@
+/* ===================================
+ * Post Content Styles
+ * Article Typography & Elements
+ * =================================== */
+
+.post-content {
+  font: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.8;
+}
+
+/* ===================================
+ * Headings in Post
+ * =================================== */
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.post-content h1 {
+  font-size: 34px;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h2 {
+  font-size: 28px;
+  line-height: 1.3;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h3 {
+  font-size: 23px;
+  line-height: 1.35;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h4 {
+  font: var(--md-sys-typescale-title-large);
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h5 {
+  font: var(--md-sys-typescale-title-medium);
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h6 {
+  font: var(--md-sys-typescale-title-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* First heading should not have top margin */
+.post-content > h1:first-child,
+.post-content > h2:first-child,
+.post-content > h3:first-child,
+.post-content > h4:first-child {
+  margin-top: 0;
+}
+
+/* Heading anchors */
+.post-content h1[id],
+.post-content h2[id],
+.post-content h3[id],
+.post-content h4[id],
+.post-content h5[id],
+.post-content h6[id] {
+  scroll-margin-top: calc(var(--blog-header-height) + 24px);
+}
+
+.post-content h1[id]::before,
+.post-content h2[id]::before,
+.post-content h3[id]::before,
+.post-content h4[id]::before,
+.post-content h5[id]::before,
+.post-content h6[id]::before {
+  content: '#';
+  color: var(--md-sys-color-primary);
+  opacity: 0;
+  margin-left: -1em;
+  width: 1em;
+  display: inline-block;
+  transition: opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-content h1[id]:hover::before,
+.post-content h2[id]:hover::before,
+.post-content h3[id]:hover::before,
+.post-content h4[id]:hover::before,
+.post-content h5[id]:hover::before,
+.post-content h6[id]:hover::before {
+  opacity: 0.5;
+}
+
+/* ===================================
+ * Paragraphs & Text
+ * =================================== */
+.post-content p {
+  margin-bottom: 1em;
+}
+
+.post-content strong {
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content em {
+  font-style: italic;
+}
+
+/* ===================================
+ * Links in Post
+ * =================================== */
+.post-content a {
+  color: var(--md-sys-color-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-content a:hover {
+  color: var(--md-sys-color-on-primary-container);
+  text-decoration-thickness: 2px;
+}
+
+/* ===================================
+ * Lists in Post
+ * =================================== */
+.post-content ul,
+.post-content ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.post-content li {
+  margin-bottom: 0.25em;
+  line-height: 1.75;
+}
+
+.post-content li > ul,
+.post-content li > ol {
+  margin-top: 0.25em;
+  margin-bottom: 0;
+}
+
+.post-content ul li::marker {
+  color: var(--md-sys-color-primary);
+}
+
+.post-content ol li::marker {
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+}
+
+/* Task list (checkbox) */
+.post-content ul.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post-content li.task-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.post-content li.task-list-item input[type="checkbox"] {
+  accent-color: var(--md-sys-color-primary);
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* ===================================
+ * Blockquotes
+ * =================================== */
+.post-content blockquote {
+  background: var(--md-sys-color-surface-container);
+  border-left: 4px solid var(--md-sys-color-primary);
+  border-radius: 0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0;
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.post-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.post-content blockquote blockquote {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  background: var(--md-sys-color-surface-container-high);
+}
+
+/* ===================================
+ * Code
+ * =================================== */
+.post-content code {
+  font-family: var(--md-sys-typescale-font-family-mono);
+  font-size: 0.875em;
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 0.2em 0.4em;
+  border-radius: var(--md-sys-shape-corner-small);
+  font-feature-settings: "liga" 0;
+}
+
+.post-content pre {
+  position: relative;
+  background: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  margin: 1.5em 0;
+  overflow: hidden;
+}
+
+.post-content pre code {
+  display: block;
+  padding: 1.25em 1em;
+  overflow-x: auto;
+  line-height: 1.6;
+  background: none;
+  /* color is managed by highlight.js theme — do NOT override here */
+  font-size: 0.875em;
+  font-family: var(--md-sys-typescale-font-family-mono);
+  tab-size: 2;
+}
+
+/* Fallback for code blocks without hljs */
+.post-content pre code:not([class*="language-"]):not(.hljs) {
+  color: var(--md-sys-color-on-surface);
+}
+/* Code block language label */
+.post-content pre[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 12px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font: 500 var(--md-sys-typescale-label-small);
+  border-radius: 0 var(--md-sys-shape-corner-medium) 0 var(--md-sys-shape-corner-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  z-index: 1;
+}
+
+/* Copy code button */
+.post-content pre .copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--md-sys-shape-corner-small);
+  border: none;
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+  z-index: 2;
+}
+
+.post-content pre:hover .copy-code-btn {
+  opacity: 1;
+}
+
+.post-content pre .copy-code-btn:hover {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  opacity: 1;
+}
+
+.post-content pre .copy-code-btn.copied {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  opacity: 1;
+}
+
+.post-content pre[data-language] .copy-code-btn {
+  top: 36px;
+}
+
+/* Line numbers */
+.post-content pre .line-numbers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3em;
+  padding: 1em 0;
+  background: var(--md-sys-color-surface-container);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  text-align: right;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875em;
+  line-height: 1.5;
+  user-select: none;
+}
+
+.post-content pre .line-numbers span {
+  display: block;
+  padding-right: 0.5em;
+}
+
+.post-content pre.has-line-numbers code {
+  padding-left: 4em;
+}
+
+/* Highlighted line */
+.post-content pre .highlight-line {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+  display: block;
+  margin: 0 -1em;
+  padding: 0 1em;
+}
+
+/* Inline code in headings */
+.post-content h1 code,
+.post-content h2 code,
+.post-content h3 code,
+.post-content h4 code,
+.post-content h5 code,
+.post-content h6 code {
+  font-size: 0.85em;
+  background: var(--md-sys-color-surface-container);
+}
+
+/* ===================================
+ * Tables in Post
+ * =================================== */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font: var(--md-sys-typescale-body-medium);
+  border-radius: var(--md-sys-shape-corner-medium);
+  overflow: hidden;
+}
+
+.post-content thead {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.post-content th {
+  font-weight: 500;
+  text-align: left;
+  padding: 0.75em 1em;
+}
+
+.post-content td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.post-content tbody tr:nth-child(even) {
+  background: var(--md-sys-color-surface-container-low);
+}
+
+.post-content tbody tr:hover {
+  background: var(--md-sys-color-surface-container);
+}
+
+/* ===================================
+ * Images in Post
+ * =================================== */
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--md-sys-shape-corner-medium);
+  display: block;
+  margin: 1.5em auto;
+}
+
+.post-content img[alt*="center"] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Image with caption */
+.post-content figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.post-content figcaption {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 0.5em;
+}
+
+/* ===================================
+ * Horizontal Rule
+ * =================================== */
+.post-content hr {
+  border: none;
+  height: 1px;
+  background: var(--md-sys-color-outline-variant);
+  margin: 2em 0;
+}
+
+/* ===================================
+ * Keyboard
+ * =================================== */
+.post-content kbd {
+  font-family: var(--md-sys-typescale-font-family-mono);
+  font-size: 0.875em;
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 0.2em 0.5em;
+  box-shadow: 0 2px 0 var(--md-sys-color-outline-variant);
+}
+
+/* ===================================
+ * Mark / Highlight
+ * =================================== */
+.post-content mark {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  padding: 0.1em 0.3em;
+  border-radius: var(--md-sys-shape-corner-extra-small);
+}
+
+/* ===================================
+ * Details / Summary
+ * =================================== */
+.post-content details {
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: 1em;
+  margin: 1em 0;
+}
+
+.post-content details[open] {
+  background: var(--md-sys-color-surface-container-low);
+}
+
+.post-content summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--md-sys-color-primary);
+  padding: 0.5em 0;
+  user-select: none;
+}
+
+.post-content summary:hover {
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* ===================================
+ * Footnotes
+ * =================================== */
+.post-content .footnotes {
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.post-content .footnote-ref {
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+.post-content .footnote-backref {
+  text-decoration: none;
+}
+
+/* ===================================
+ * Math (KaTeX)
+ * =================================== */
+.post-content .katex {
+  font-size: 1.1em;
+}
+
+.post-content .katex-display {
+  margin: 1.5em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
+/* ===================================
+ * Alert / Admonition (if supported)
+ * =================================== */
+.post-content .alert {
+  padding: 1em 1.25em;
+  border-radius: var(--md-sys-shape-corner-medium);
+  margin: 1.5em 0;
+  border-left: 4px solid;
+}
+
+.post-content .alert-info {
+  background: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent);
+  border-color: var(--md-sys-color-primary);
+}
+
+.post-content .alert-warning {
+  background: color-mix(in srgb, var(--md-sys-color-tertiary-container) 50%, transparent);
+  border-color: var(--md-sys-color-tertiary);
+}
+
+.post-content .alert-danger {
+  background: color-mix(in srgb, var(--md-sys-color-error-container) 50%, transparent);
+  border-color: var(--md-sys-color-error);
+}
+
+.post-content .alert-success {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 50%, transparent);
+  border-color: var(--md-sys-color-secondary);
+}
+
+/* ===================================
+ * Callout Blocks — Theme-level Components
+ * Usage in markdown:
+ *   <div class="callout callout-info">内容</div>
+ *   <div class="callout callout-tip">内容</div>
+ *   <div class="callout callout-warning">内容</div>
+ *   <div class="callout callout-danger">内容</div>
+ *   <div class="callout callout-note">内容</div>
+ *   <div class="callout callout-success">内容</div>
+ *
+ * With title:
+ *   <div class="callout callout-info">
+ *     <div class="callout-title">标题</div>
+ *     <div class="callout-content">内容</div>
+ *   </div>
+ * =================================== */
+.post-content .callout {
+  position: relative;
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  border-radius: var(--md-sys-shape-corner-medium);
+  border-left: 4px solid;
+  line-height: 1.7;
+}
+
+.post-content .callout p {
+  margin: 0.5em 0;
+}
+
+.post-content .callout p:first-child {
+  margin-top: 0;
+}
+
+.post-content .callout p:last-child {
+  margin-bottom: 0;
+}
+
+.post-content .callout-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95em;
+  margin-bottom: 0.5em;
+}
+
+.post-content .callout-title::before {
+  font-family: 'Material Symbols Rounded';
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Info */
+.post-content .callout-info {
+  background: color-mix(in srgb, var(--md-sys-color-primary-container) 40%, var(--md-sys-color-surface-container-low) 60%);
+  border-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-info .callout-title {
+  color: var(--md-sys-color-primary);
+}
+
+.post-content .callout-info .callout-title::before {
+  content: 'info';
+  color: var(--md-sys-color-primary);
+}
+
+/* Tip */
+.post-content .callout-tip {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 40%, var(--md-sys-color-surface-container-low) 60%);
+  border-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-tip .callout-title {
+  color: var(--md-sys-color-secondary);
+}
+
+.post-content .callout-tip .callout-title::before {
+  content: 'lightbulb';
+  color: var(--md-sys-color-secondary);
+}
+
+/* Note */
+.post-content .callout-note {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container) 60%, var(--md-sys-color-surface-container-low) 40%);
+  border-color: var(--md-sys-color-outline);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-note .callout-title {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.post-content .callout-note .callout-title::before {
+  content: 'edit_note';
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Warning */
+.post-content .callout-warning {
+  background: color-mix(in srgb, var(--md-sys-color-tertiary-container) 40%, var(--md-sys-color-surface-container-low) 60%);
+  border-color: var(--md-sys-color-tertiary);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-warning .callout-title {
+  color: var(--md-sys-color-tertiary);
+}
+
+.post-content .callout-warning .callout-title::before {
+  content: 'warning';
+  color: var(--md-sys-color-tertiary);
+}
+
+/* Danger */
+.post-content .callout-danger {
+  background: color-mix(in srgb, var(--md-sys-color-error-container) 40%, var(--md-sys-color-surface-container-low) 60%);
+  border-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-danger .callout-title {
+  color: var(--md-sys-color-error);
+}
+
+.post-content .callout-danger .callout-title::before {
+  content: 'error';
+  color: var(--md-sys-color-error);
+}
+
+/* Success */
+.post-content .callout-success {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 40%, var(--md-sys-color-surface-container-low) 60%);
+  border-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-content .callout-success .callout-title {
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.post-content .callout-success .callout-title::before {
+  content: 'check_circle';
+  color: var(--md-sys-color-secondary);
+}
+
+/* Centered callout content */
+.post-content .callout-center {
+  text-align: center;
+}
+
+.post-content .callout-center .callout-title {
+  justify-content: center;
+}
+
+/* ===================================
+ * Album Grid (for resource posts)
+ * Usage in markdown:
+ *   <div class="album-grid">
+ *     <div class="album-item">
+ *       <img src="cover.jpg" alt="album">
+ *       <span>Album Name</span>
+ *     </div>
+ *   </div>
+ * =================================== */
+.post-content .album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 1.5em 0;
+}
+
+.post-content .album-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-medium);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  text-align: center;
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-content .album-item:hover {
+  background: var(--md-sys-color-surface-container);
+  transform: translateY(-2px);
+}
+
+.post-content .album-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--md-sys-shape-corner-small);
+  margin: 0;
+}
+
+.post-content .album-item span {
+  font: var(--md-sys-typescale-label-medium);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.4;
+}
+
+/* Back to top link in posts */
+.post-content .back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--md-sys-typescale-label-medium);
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: var(--md-sys-shape-corner-small);
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-content .back-top:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+  text-decoration: none;
+}
+
+/* ===================================
+ * Post Tags
+ * =================================== */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.post-tags .md-chip {
+  height: 28px;
+  font-size: 0.8125em;
+}
+
+/* ===================================
+ * Post Navigation (Previous/Next)
+ * =================================== */
+.post-nav {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.post-nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  text-decoration: none;
+  transition: border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-nav__item:hover {
+  border-color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-surface-container-low);
+  text-decoration: none;
+}
+
+.post-nav__label {
+  font: var(--md-sys-typescale-label-small);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.post-nav__title {
+  font: var(--md-sys-typescale-title-small);
+  color: var(--md-sys-color-primary);
+}
+
+.post-nav__item--prev {
+  text-align: left;
+}
+
+.post-nav__item--next {
+  text-align: right;
+}
+
+/* ===================================
+ * Post Share Buttons
+ * =================================== */
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.post-share__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.post-share__label .md-icon {
+  font-size: 18px;
+  color: var(--md-sys-color-primary);
+}
+
+.post-share__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-share__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--md-sys-shape-corner-full);
+  border: 1px solid var(--md-sys-color-outline);
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font: var(--md-sys-typescale-label-large);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-share__btn:hover {
+  background: var(--md-sys-color-primary-container);
+  border-color: transparent;
+  color: var(--md-sys-color-on-primary-container);
+  text-decoration: none;
+}
+
+.post-share__btn .md-icon {
+  font-size: 16px;
+}
+
+.post-share__btn i {
+  font-size: 16px;
+  width: 16px;
+  text-align: center;
+}
+
+/* ===================================
+ * Post Author Card
+ * =================================== */
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 20px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-large);
+}
+
+.post-author__avatar-wrap {
+  flex-shrink: 0;
+}
+
+.post-author__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--md-sys-shape-corner-full);
+  object-fit: cover;
+}
+
+.post-author__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.post-author__byline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.post-author__label {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.post-author__name {
+  font: 600 var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+}
+
+.post-author__name:hover {
+  text-decoration: underline;
+}
+
+.post-author__bio {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 4px 0 0;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===================================
+ * Related Posts
+ * =================================== */
+.post-related {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.post-related__title {
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-surface);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-related__title .md-icon {
+  color: var(--md-sys-color-primary);
+}
+
+.post-related__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.post-related__item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  text-decoration: none;
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-related__item:hover {
+  background: var(--md-sys-color-surface-container);
+  border-color: var(--md-sys-color-primary);
+  text-decoration: none;
+}
+
+.post-related__cover {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--md-sys-shape-corner-small);
+  object-fit: cover;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.post-related__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.post-related__name {
+  font: var(--md-sys-typescale-title-small);
+  color: var(--md-sys-color-on-surface);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.post-related__date {
+  font: var(--md-sys-typescale-label-medium);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* ===================================
+ * Series Navigation
+ * =================================== */
+.post-series {
+  margin-top: 32px;
+  padding: 20px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-large);
+  border-left: 4px solid var(--md-sys-color-primary);
+}
+
+.post-series__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font: var(--md-sys-typescale-title-medium);
+  color: var(--md-sys-color-on-surface);
+}
+
+.post-series__header .md-icon {
+  color: var(--md-sys-color-primary);
+}
+
+.post-series__count {
+  font: var(--md-sys-typescale-label-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-left: auto;
+}
+
+.post-series__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: series;
+}
+
+.post-series__item {
+  counter-increment: series;
+  padding: 8px 12px;
+  border-radius: var(--md-sys-shape-corner-small);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.post-series__item::before {
+  content: counter(series) '.';
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-on-surface-variant);
+  min-width: 24px;
+}
+
+.post-series__item:hover {
+  background: var(--md-sys-color-surface-container);
+}
+
+.post-series__item.active {
+  background: var(--md-sys-color-primary-container);
+}
+
+.post-series__link {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  flex: 1;
+}
+
+.post-series__item.active .post-series__link {
+  color: var(--md-sys-color-on-primary-container);
+  font-weight: 500;
+}
+
+.post-series__link:hover {
+  color: var(--md-sys-color-primary);
+}
+
+.post-series__current-badge {
+  font: var(--md-sys-typescale-label-small);
+  color: var(--md-sys-color-on-primary-container);
+  background: var(--md-sys-color-primary);
+  padding: 2px 8px;
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+/* ===================================
+ * Responsive
+ * =================================== */
+@media (max-width: 768px) {
+  .post-content pre code {
+    font-size: 0.8125em;
+  }
+
+  .post-content table {
+    font-size: 0.875em;
+  }
+
+  .post-content th,
+  .post-content td {
+    padding: 0.5em 0.75em;
+  }
+
+  .post-nav {
+    flex-direction: column;
+  }
+
+  .post-nav__item--next {
+    text-align: left;
+  }
+
+  .post-share {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .post-author {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .post-author__info {
+    align-items: center;
+  }
+
+  .post-related__list {
+    grid-template-columns: 1fr;
+  }
+}
