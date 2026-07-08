@@ -71,10 +71,10 @@
    * =================================== */
   --md-sys-shape-corner-none: 0;
   --md-sys-shape-corner-extra-small: 4px;
-  --md-sys-shape-corner-small: 6px;
-  --md-sys-shape-corner-medium: 10px;
-  --md-sys-shape-corner-large: 14px;
-  --md-sys-shape-corner-extra-large: 20px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
   --md-sys-shape-corner-full: 9999px;
 
   /* ===================================
@@ -127,6 +127,7 @@
   --md-sys-motion-duration-short: 180ms;
   --md-sys-motion-duration-medium: 280ms;
   --md-sys-motion-duration-long: 450ms;
+  --md-sys-motion-duration-extra-long: 600ms;
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-easing-decelerate: cubic-bezier(0, 0, 0, 1);
@@ -138,6 +139,11 @@
   --blog-header-height: 56px;
   --blog-content-max-width: 800px;
   --blog-page-max-width: 1200px;
+  --blog-sidebar-width: 300px;
+  --blog-page-gutter: 24px;
+  --blog-section-gap: 24px;
+  --blog-fab-inset: max(24px, env(safe-area-inset-right));
+  --blog-bottom-inset: max(24px, env(safe-area-inset-bottom));
   --blog-accent-line: 3px;
 }
 
@@ -169,24 +175,24 @@
   --md-sys-color-error-container: #8C1D18;
   --md-sys-color-on-error-container: #F9DEDC;
 
-  /* Background & Surface — deep navy matching homepage */
-  --md-sys-color-background: #0f0f1a;
+  /* Background & Surface */
+  --md-sys-color-background: #141218;
   --md-sys-color-on-background: #E6E1E5;
-  --md-sys-color-surface: #0f0f1a;
+  --md-sys-color-surface: #141218;
   --md-sys-color-on-surface: #E6E1E5;
 
-  /* Surface Variants — navy card tones */
-  --md-sys-color-surface-variant: #2a2a4a;
-  --md-sys-color-on-surface-variant: #d2c5cc;
-  --md-sys-color-surface-container-lowest: #0a0a14;
-  --md-sys-color-surface-container-low: #16213e;
-  --md-sys-color-surface-container: #1a1a2e;
-  --md-sys-color-surface-container-high: #22223a;
-  --md-sys-color-surface-container-highest: #2a2a4a;
+  /* Surface Variants */
+  --md-sys-color-surface-variant: #4b454d;
+  --md-sys-color-on-surface-variant: #d0c4cc;
+  --md-sys-color-surface-container-lowest: #0f0d13;
+  --md-sys-color-surface-container-low: #1d1b20;
+  --md-sys-color-surface-container: #211f26;
+  --md-sys-color-surface-container-high: #2b2930;
+  --md-sys-color-surface-container-highest: #36343b;
 
   /* Outline */
   --md-sys-color-outline: #7a7096;
-  --md-sys-color-outline-variant: #2a2a4a;
+  --md-sys-color-outline-variant: #4b454d;
 
   /* Other */
   --md-sys-color-inverse-surface: #E6E1E5;
@@ -225,24 +231,24 @@
     --md-sys-color-error-container: #8C1D18;
     --md-sys-color-on-error-container: #F9DEDC;
 
-    /* Background & Surface — deep navy matching homepage */
-    --md-sys-color-background: #0f0f1a;
+    /* Background & Surface */
+    --md-sys-color-background: #141218;
     --md-sys-color-on-background: #E6E1E5;
-    --md-sys-color-surface: #0f0f1a;
+    --md-sys-color-surface: #141218;
     --md-sys-color-on-surface: #E6E1E5;
 
-    /* Surface Variants — navy card tones */
-    --md-sys-color-surface-variant: #2a2a4a;
-    --md-sys-color-on-surface-variant: #d2c5cc;
-    --md-sys-color-surface-container-lowest: #0a0a14;
-    --md-sys-color-surface-container-low: #16213e;
-    --md-sys-color-surface-container: #1a1a2e;
-    --md-sys-color-surface-container-high: #22223a;
-    --md-sys-color-surface-container-highest: #2a2a4a;
+    /* Surface Variants */
+    --md-sys-color-surface-variant: #4b454d;
+    --md-sys-color-on-surface-variant: #d0c4cc;
+    --md-sys-color-surface-container-lowest: #0f0d13;
+    --md-sys-color-surface-container-low: #1d1b20;
+    --md-sys-color-surface-container: #211f26;
+    --md-sys-color-surface-container-high: #2b2930;
+    --md-sys-color-surface-container-highest: #36343b;
 
     /* Outline */
     --md-sys-color-outline: #7a7096;
-    --md-sys-color-outline-variant: #2a2a4a;
+    --md-sys-color-outline-variant: #4b454d;
 
     /* Other */
     --md-sys-color-inverse-surface: #E6E1E5;

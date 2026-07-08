@@ -22,7 +22,7 @@
 <meta name="author" content="芹菜P">
 <meta name="description" content="已经不再是低眉顺眼的昨日，从今天开始我的传说">
 
-<meta name="keywords" content="公告">
+<meta name="keywords" content="站务">
 
 <link rel="icon" href="/images/fav.webp">
 <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
@@ -48,28 +48,9 @@
 
 
 <meta name="generator" content="Hexo 8.1.1"></head>
-<body>
+<body class=" ">
   <!-- 加载遮罩 -->
-  <div id="loading-overlay" class="loading-overlay" aria-label="页面加载中" role="status">
-    <div class="loading-overlay__mask" aria-hidden="true"></div>
-    <div class="loading-overlay__inner">
-      <div class="loading-overlay__img">
-        <picture>
-          <source
-            srcset="https://millionlive-theaterdays.idolmaster-official.jp/assets/data/webp/common/load/17/sd.png.webp"
-            type="image/webp">
-          <img
-            src="https://millionlive-theaterdays.idolmaster-official.jp/assets/img/common/load/17/sd.png"
-            alt="loading"
-            onerror="this.parentElement.innerHTML='<div style=\'width:80px;height:100px;background:linear-gradient(135deg,#FFB6C1,#FF69B4);border-radius:40px 40px 20px 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:white;\'>♪</div>'"
-          >
-        </picture>
-      </div>
-      <div class="loading-overlay__text" id="loading-text">
-        <span class="loading-overlay__fallback-text">Now Loading...</span>
-      </div>
-    </div>
-  </div>
+  
 
   <a href="#main-content" class="skip-link">跳转到内容</a>
   <div class="page-container">
@@ -112,13 +93,13 @@
     
   </nav>
   <div class="md-header__trailing">
-    <button class="md-theme-toggle" id="search-toggle" aria-label="搜索">
+    <button class="md-icon-btn md-header__action" id="search-toggle" aria-label="搜索">
       <span class="md-icon">search</span>
     </button>
-    <button class="md-theme-toggle" id="theme-toggle" aria-label="切换主题">
+    <button class="md-icon-btn md-header__action" id="theme-toggle" aria-label="切换主题">
       <span class="md-icon" id="theme-icon">dark_mode</span>
     </button>
-    <button class="md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
+    <button class="md-icon-btn md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
       <span class="md-icon">menu</span>
     </button>
   </div>
@@ -174,15 +155,20 @@
       
       <span class="post-header__meta-item">
         <span class="md-icon">edit_calendar</span>
-        <time datetime="2026-03-25T06:41:34.051Z">2026-03-25</time>
+        <time datetime="2026-07-08T14:41:20.233Z">2026-07-08</time>
       </span>
       
+      
+      <span class="post-header__meta-item">
+        <span class="md-icon">folder</span>
+        <a href="/categories/notice/">公告</a>
+      </span>
       
       
       <span class="post-header__meta-item">
         <span class="md-icon">label</span>
         
-        <a href="/tags/%E5%85%AC%E5%91%8A/">公告</a>
+        <a href="/tags/site/">站务</a>
         
       </span>
       
@@ -214,9 +200,9 @@
   
   <div class="post-tags">
     
-    <a href="/tags/%E5%85%AC%E5%91%8A/" class="md-chip">
+    <a href="/tags/site/" class="md-chip">
       <span class="md-icon">label</span>
-      <span>公告</span>
+      <span>站务</span>
     </a>
     
   </div>
@@ -389,8 +375,7 @@
 </div>
 
   <!-- Scripts -->
-<!-- Lottie for loading animation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+
 
 
 <!-- Highlight.js — always load, theme CSS decides which applies via dark.css -->
@@ -407,7 +392,19 @@
   else{dark.media='none';light.media='all';}
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script>
+window.md3LoadHighlightFallback = function () {
+  if (window.hljs || document.getElementById('hljs-fallback-script')) return;
+  var script = document.createElement('script');
+  script.id = 'hljs-fallback-script';
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+  script.onload = function () {
+    window.dispatchEvent(new Event('md3:highlight-ready'));
+  };
+  document.head.appendChild(script);
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js" onload="window.dispatchEvent(new Event('md3:highlight-ready'))" onerror="window.md3LoadHighlightFallback && window.md3LoadHighlightFallback()"></script>
 
 
 

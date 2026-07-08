@@ -27,6 +27,14 @@ body {
               color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
+body.scroll-locked {
+  overflow: hidden;
+}
+
+body.density-compact {
+  --blog-section-gap: 16px;
+}
+
 /* ===================================
  * Selection
  * =================================== */
@@ -205,6 +213,19 @@ img, video, audio, iframe {
   margin: 1em auto;
 }
 
+svg,
+canvas {
+  max-width: 100%;
+}
+
+.post-content,
+.page-content,
+.post-card,
+.md-sidebar,
+.main-content {
+  overflow-wrap: anywhere;
+}
+
 /* ===================================
  * Tables
  * =================================== */
@@ -215,6 +236,12 @@ table {
   font: var(--md-sys-typescale-body-medium);
   border-radius: var(--md-sys-shape-corner-medium);
   overflow: hidden;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 thead {

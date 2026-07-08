@@ -7,6 +7,7 @@
   font: var(--md-sys-typescale-body-large);
   color: var(--md-sys-color-on-surface);
   line-height: 1.8;
+  min-width: 0;
 }
 
 /* ===================================
@@ -16,7 +17,8 @@
 .post-content h2,
 .post-content h3 {
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .post-content h1 {
@@ -108,6 +110,7 @@
  * =================================== */
 .post-content p {
   margin-bottom: 1em;
+  overflow-wrap: anywhere;
 }
 
 .post-content strong {
@@ -219,19 +222,23 @@
   font-feature-settings: "liga" 0;
 }
 
-.post-content pre {
+.post-content pre,
+.post-content figure.highlight {
   position: relative;
   background: var(--md-sys-color-surface-container-lowest);
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-medium);
   margin: 1.5em 0;
   overflow: hidden;
+  max-width: 100%;
 }
 
-.post-content pre code {
+.post-content pre code,
+.post-content figure.highlight pre {
   display: block;
   padding: 1.25em 1em;
   overflow-x: auto;
+  max-width: 100%;
   line-height: 1.6;
   background: none;
   /* color is managed by highlight.js theme — do NOT override here */
@@ -253,7 +260,55 @@
   padding: 4px 12px;
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
-  font: 500 var(--md-sys-typescale-label-small);
+  font-family: var(--md-sys-typescale-font-family-ui);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: 0 var(--md-sys-shape-corner-medium) 0 var(--md-sys-shape-corner-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  z-index: 1;
+}
+
+.post-content figure.highlight {
+  padding: 0;
+}
+
+.post-content figure.highlight table,
+.post-content figure.highlight tbody,
+.post-content figure.highlight tr,
+.post-content figure.highlight td {
+  display: block;
+  width: 100%;
+}
+
+.post-content figure.highlight .gutter {
+  display: none;
+}
+
+.post-content figure.highlight .code {
+  display: block;
+}
+
+.post-content figure.highlight pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.post-content figure.highlight[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 12px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font-family: var(--md-sys-typescale-font-family-ui);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
   border-radius: 0 var(--md-sys-shape-corner-medium) 0 var(--md-sys-shape-corner-small);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -261,7 +316,8 @@
 }
 
 /* Copy code button */
-.post-content pre .copy-code-btn {
+.post-content pre .copy-code-btn,
+.post-content figure.highlight .copy-code-btn {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -282,23 +338,27 @@
   z-index: 2;
 }
 
-.post-content pre:hover .copy-code-btn {
+.post-content pre:hover .copy-code-btn,
+.post-content figure.highlight:hover .copy-code-btn {
   opacity: 1;
 }
 
-.post-content pre .copy-code-btn:hover {
+.post-content pre .copy-code-btn:hover,
+.post-content figure.highlight .copy-code-btn:hover {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   opacity: 1;
 }
 
-.post-content pre .copy-code-btn.copied {
+.post-content pre .copy-code-btn.copied,
+.post-content figure.highlight .copy-code-btn.copied {
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
   opacity: 1;
 }
 
-.post-content pre[data-language] .copy-code-btn {
+.post-content pre[data-language] .copy-code-btn,
+.post-content figure.highlight[data-language] .copy-code-btn {
   top: 36px;
 }
 
@@ -351,7 +411,8 @@
  * Tables in Post
  * =================================== */
 .post-content table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   margin: 1.5em 0;
   font: var(--md-sys-typescale-body-medium);
@@ -392,6 +453,13 @@
   border-radius: var(--md-sys-shape-corner-medium);
   display: block;
   margin: 1.5em auto;
+}
+
+.post-content iframe,
+.post-content video,
+.post-content embed,
+.post-content object {
+  max-width: 100%;
 }
 
 .post-content img[alt*="center"] {
@@ -813,6 +881,7 @@
 .post-nav__title {
   font: var(--md-sys-typescale-title-small);
   color: var(--md-sys-color-primary);
+  overflow-wrap: anywhere;
 }
 
 .post-nav__item--prev {
@@ -829,6 +898,7 @@
 .post-share {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 24px;
   padding: 16px 0;
@@ -949,9 +1019,7 @@
   color: var(--md-sys-color-on-surface-variant);
   margin: 4px 0 0;
   line-height: 1.5;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 /* ===================================
@@ -1044,6 +1112,7 @@
 .post-series__header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 12px;
   font: var(--md-sys-typescale-title-medium);
@@ -1074,6 +1143,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
   transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
@@ -1097,6 +1167,8 @@
   color: var(--md-sys-color-on-surface);
   text-decoration: none;
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .post-series__item.active .post-series__link {
@@ -1128,6 +1200,18 @@
     font-size: 0.875em;
   }
 
+  .post-content h1 {
+    font-size: 28px;
+  }
+
+  .post-content h2 {
+    font-size: 24px;
+  }
+
+  .post-content h3 {
+    font-size: 20px;
+  }
+
   .post-content th,
   .post-content td {
     padding: 0.5em 0.75em;
@@ -1156,7 +1240,34 @@
     align-items: center;
   }
 
+  .post-author__bio {
+    text-align: center;
+  }
+
   .post-related__list {
     grid-template-columns: 1fr;
+  }
+
+  .post-series__count {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .post-content {
+    font-size: 16px;
+  }
+
+  .post-tags .md-chip,
+  .post-share__btn {
+    max-width: 100%;
+  }
+
+  .post-share__buttons {
+    width: 100%;
+  }
+
+  .post-share__btn {
+    justify-content: center;
   }
 }

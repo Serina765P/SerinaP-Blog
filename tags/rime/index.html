@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>标签: 学园偶像大师 | SerinaP&#39;s Blog</title>
+<title>标签: Rime | SerinaP&#39;s Blog</title>
 
 <!-- Theme Initialization (prevent FOUC) -->
 <script>
@@ -48,28 +48,9 @@
 
 
 <meta name="generator" content="Hexo 8.1.1"></head>
-<body>
+<body class=" ">
   <!-- 加载遮罩 -->
-  <div id="loading-overlay" class="loading-overlay" aria-label="页面加载中" role="status">
-    <div class="loading-overlay__mask" aria-hidden="true"></div>
-    <div class="loading-overlay__inner">
-      <div class="loading-overlay__img">
-        <picture>
-          <source
-            srcset="https://millionlive-theaterdays.idolmaster-official.jp/assets/data/webp/common/load/17/sd.png.webp"
-            type="image/webp">
-          <img
-            src="https://millionlive-theaterdays.idolmaster-official.jp/assets/img/common/load/17/sd.png"
-            alt="loading"
-            onerror="this.parentElement.innerHTML='<div style=\'width:80px;height:100px;background:linear-gradient(135deg,#FFB6C1,#FF69B4);border-radius:40px 40px 20px 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:white;\'>♪</div>'"
-          >
-        </picture>
-      </div>
-      <div class="loading-overlay__text" id="loading-text">
-        <span class="loading-overlay__fallback-text">Now Loading...</span>
-      </div>
-    </div>
-  </div>
+  
 
   <a href="#main-content" class="skip-link">跳转到内容</a>
   <div class="page-container">
@@ -112,13 +93,13 @@
     
   </nav>
   <div class="md-header__trailing">
-    <button class="md-theme-toggle" id="search-toggle" aria-label="搜索">
+    <button class="md-icon-btn md-header__action" id="search-toggle" aria-label="搜索">
       <span class="md-icon">search</span>
     </button>
-    <button class="md-theme-toggle" id="theme-toggle" aria-label="切换主题">
+    <button class="md-icon-btn md-header__action" id="theme-toggle" aria-label="切换主题">
       <span class="md-icon" id="theme-icon">dark_mode</span>
     </button>
-    <button class="md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
+    <button class="md-icon-btn md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
       <span class="md-icon">menu</span>
     </button>
   </div>
@@ -165,14 +146,14 @@
       <section class="archives-page">
   <h1 class="page-title">
     <span class="md-icon">label</span>
-    学园偶像大师
+    Rime
   </h1>
 
   <div class="archive-list">
     
-    <a href="/posts/gakumas-hires/" class="archive-item">
-      <time class="archive-item__date">12-06</time>
-      <span class="archive-item__title">学园偶像大师Hi-Res整理聚合贴</span>
+    <a href="/posts/pcshurufa/" class="archive-item">
+      <time class="archive-item__date">02-22</time>
+      <span class="archive-item__title">基于中州韵输入法 + 雾凇拼音词库改善 Windows 输入方案</span>
     </a>
     
   </div>
@@ -231,8 +212,7 @@
 </div>
 
   <!-- Scripts -->
-<!-- Lottie for loading animation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+
 
 
 <!-- Highlight.js — always load, theme CSS decides which applies via dark.css -->
@@ -249,7 +229,19 @@
   else{dark.media='none';light.media='all';}
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script>
+window.md3LoadHighlightFallback = function () {
+  if (window.hljs || document.getElementById('hljs-fallback-script')) return;
+  var script = document.createElement('script');
+  script.id = 'hljs-fallback-script';
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+  script.onload = function () {
+    window.dispatchEvent(new Event('md3:highlight-ready'));
+  };
+  document.head.appendChild(script);
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js" onload="window.dispatchEvent(new Event('md3:highlight-ready'))" onerror="window.md3LoadHighlightFallback && window.md3LoadHighlightFallback()"></script>
 
 
 

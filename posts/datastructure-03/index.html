@@ -48,28 +48,9 @@
 
 
 <meta name="generator" content="Hexo 8.1.1"></head>
-<body>
+<body class=" ">
   <!-- 加载遮罩 -->
-  <div id="loading-overlay" class="loading-overlay" aria-label="页面加载中" role="status">
-    <div class="loading-overlay__mask" aria-hidden="true"></div>
-    <div class="loading-overlay__inner">
-      <div class="loading-overlay__img">
-        <picture>
-          <source
-            srcset="https://millionlive-theaterdays.idolmaster-official.jp/assets/data/webp/common/load/17/sd.png.webp"
-            type="image/webp">
-          <img
-            src="https://millionlive-theaterdays.idolmaster-official.jp/assets/img/common/load/17/sd.png"
-            alt="loading"
-            onerror="this.parentElement.innerHTML='<div style=\'width:80px;height:100px;background:linear-gradient(135deg,#FFB6C1,#FF69B4);border-radius:40px 40px 20px 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:white;\'>♪</div>'"
-          >
-        </picture>
-      </div>
-      <div class="loading-overlay__text" id="loading-text">
-        <span class="loading-overlay__fallback-text">Now Loading...</span>
-      </div>
-    </div>
-  </div>
+  
 
   <a href="#main-content" class="skip-link">跳转到内容</a>
   <div class="page-container">
@@ -112,13 +93,13 @@
     
   </nav>
   <div class="md-header__trailing">
-    <button class="md-theme-toggle" id="search-toggle" aria-label="搜索">
+    <button class="md-icon-btn md-header__action" id="search-toggle" aria-label="搜索">
       <span class="md-icon">search</span>
     </button>
-    <button class="md-theme-toggle" id="theme-toggle" aria-label="切换主题">
+    <button class="md-icon-btn md-header__action" id="theme-toggle" aria-label="切换主题">
       <span class="md-icon" id="theme-icon">dark_mode</span>
     </button>
-    <button class="md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
+    <button class="md-icon-btn md-header__menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
       <span class="md-icon">menu</span>
     </button>
   </div>
@@ -174,22 +155,22 @@
       
       <span class="post-header__meta-item">
         <span class="md-icon">edit_calendar</span>
-        <time datetime="2026-06-29T12:06:28.749Z">2026-06-29</time>
+        <time datetime="2026-07-08T14:38:15.610Z">2026-07-08</time>
       </span>
       
       
       <span class="post-header__meta-item">
         <span class="md-icon">folder</span>
-        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">数据结构课堂笔记</a>
+        <a href="/categories/notes/">学习笔记</a>
       </span>
       
       
       <span class="post-header__meta-item">
         <span class="md-icon">label</span>
         
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>, 
+        <a href="/tags/data-structure/">数据结构</a>, 
         
-        <a href="/tags/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">课堂笔记</a>
+        <a href="/tags/lecture-notes/">课堂笔记</a>
         
       </span>
       
@@ -1895,12 +1876,12 @@ rear = 2
   
   <div class="post-tags">
     
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-chip">
+    <a href="/tags/data-structure/" class="md-chip">
       <span class="md-icon">label</span>
       <span>数据结构</span>
     </a>
     
-    <a href="/tags/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" class="md-chip">
+    <a href="/tags/lecture-notes/" class="md-chip">
       <span class="md-icon">label</span>
       <span>课堂笔记</span>
     </a>
@@ -2109,8 +2090,7 @@ rear = 2
 </div>
 
   <!-- Scripts -->
-<!-- Lottie for loading animation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+
 
 
 <!-- Highlight.js — always load, theme CSS decides which applies via dark.css -->
@@ -2127,7 +2107,19 @@ rear = 2
   else{dark.media='none';light.media='all';}
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script>
+window.md3LoadHighlightFallback = function () {
+  if (window.hljs || document.getElementById('hljs-fallback-script')) return;
+  var script = document.createElement('script');
+  script.id = 'hljs-fallback-script';
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+  script.onload = function () {
+    window.dispatchEvent(new Event('md3:highlight-ready'));
+  };
+  document.head.appendChild(script);
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js" onload="window.dispatchEvent(new Event('md3:highlight-ready'))" onerror="window.md3LoadHighlightFallback && window.md3LoadHighlightFallback()"></script>
 
 
 

@@ -6,6 +6,29 @@
 (function () {
   'use strict';
 
+  const Motion = {
+    reduced() {
+      return document.body.classList.contains('motion-disabled') ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+  };
+
+  const ScrollLock = {
+    count: 0,
+    lock() {
+      this.count += 1;
+      document.body.classList.add('scroll-locked');
+    },
+    unlock() {
+      this.count = Math.max(0, this.count - 1);
+      if (this.count === 0) document.body.classList.remove('scroll-locked');
+    },
+    reset() {
+      this.count = 0;
+      document.body.classList.remove('scroll-locked');
+    }
+  };
+
   // ===================================
   // Theme Toggle
   // ===================================
@@ -151,19 +174,23 @@
     },
 
     open() {
+      if (this.drawer.classList.contains('open')) return;
       this.previouslyFocused = document.activeElement;
       this.drawer.classList.add('open');
       this.overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      this.menuBtn.setAttribute('aria-expanded', 'true');
+      ScrollLock.lock();
       // Focus first nav item
       const first = this.getFocusable()[0];
       if (first) first.focus();
     },
 
     close() {
+      if (!this.drawer.classList.contains('open')) return;
       this.drawer.classList.remove('open');
       this.overlay.classList.remove('open');
-      document.body.style.overflow = '';
+      this.menuBtn.setAttribute('aria-expanded', 'false');
+      ScrollLock.unlock();
       // Restore focus to menu button
       if (this.previouslyFocused) this.previouslyFocused.focus();
     }
@@ -188,7 +215,7 @@
       }, { passive: true });
 
       this.fab.addEventListener('click', () => {
-        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        const behavior = Motion.reduced() ? 'auto' : 'smooth';
         window.scrollTo({ top: 0, behavior });
       });
     }
@@ -204,6 +231,7 @@
     tocOverlay: null,
     headers: [],
     observer: null,
+    previouslyFocused: null,
 
     init() {
       this.tocList = document.getElementById('toc-list');
@@ -259,15 +287,22 @@
     },
 
     openPanel() {
+      if (this.tocPanel?.classList.contains('open')) return;
+      this.previouslyFocused = document.activeElement;
       this.tocPanel?.classList.add('open');
       this.tocOverlay?.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      this.tocFab?.setAttribute('aria-expanded', 'true');
+      ScrollLock.lock();
+      document.getElementById('toc-close')?.focus();
     },
 
     closePanel() {
+      if (!this.tocPanel?.classList.contains('open')) return;
       this.tocPanel?.classList.remove('open');
       this.tocOverlay?.classList.remove('open');
-      document.body.style.overflow = '';
+      this.tocFab?.setAttribute('aria-expanded', 'false');
+      ScrollLock.unlock();
+      if (this.previouslyFocused) this.previouslyFocused.focus();
     },
 
     buildToc() {
@@ -292,7 +327,7 @@
             this.closePanel();
             const offset = 80;
             const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+            const behavior = Motion.reduced() ? 'auto' : 'smooth';
             window.scrollTo({ top, behavior });
           }
         });
@@ -328,9 +363,32 @@
   // Code Highlighting
   // ===================================
   const CodeHighlight = {
-    init() {
-      if (typeof hljs === 'undefined') return;
+    observer: null,
 
+    init() {
+      this.enhance(document);
+      this.observe();
+      window.addEventListener('load', () => this.enhance(document), { once: true });
+      window.addEventListener('md3:highlight-ready', () => this.enhance(document));
+    },
+
+    observe() {
+      if (this.observer || !window.MutationObserver) return;
+
+      this.observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              this.enhance(node);
+            }
+          });
+        });
+      });
+
+      this.observer.observe(document.body, { childList: true, subtree: true });
+    },
+
+    enhance(root) {
       // Language display names
       const langNames = {
         javascript: 'JavaScript', typescript: 'TypeScript', python: 'Python',
@@ -340,46 +398,42 @@
         json: 'JSON', xml: 'XML', yaml: 'YAML', toml: 'TOML',
         sql: 'SQL', bash: 'Bash', shell: 'Shell', sh: 'Shell',
         markdown: 'Markdown', dockerfile: 'Docker', makefile: 'Makefile',
-        plaintext: 'Text', text: 'Text'
+        plaintext: 'Text', text: 'Text', nginx: 'Nginx', ini: 'INI'
       };
 
-      document.querySelectorAll('pre code').forEach(block => {
-        // Highlight
-        try {
-          hljs.highlightElement(block);
-        } catch (e) { /* ignore */ }
+      const normalizeLang = (lang) => (lang || '')
+        .toLowerCase()
+        .replace(/^language-/, '')
+        .replace(/^lang-/, '')
+        .replace(/^highlight-/, '');
 
-        // Extract language from hljs classes or markdown code fence
-        const pre = block.parentElement;
-        if (!pre) return;
+      const detectLang = (block, result) => {
+        const classSource = [
+          block.className,
+          block.parentElement ? block.parentElement.className : ''
+        ].join(' ');
 
-        let lang = '';
-        // Try hljs class: "language-xxx" or "hljs language-xxx"
-        const cls = block.className || '';
-        const langMatch = cls.match(/(?:language-|lang-)(\w+)/);
-        if (langMatch) {
-          lang = langMatch[1].toLowerCase();
+        const langMatch = classSource.match(/(?:language-|lang-|highlight-)([\w-]+)/);
+        if (langMatch) return normalizeLang(langMatch[1]);
+        if (block.dataset.lang) return normalizeLang(block.dataset.lang);
+        if (block.parentElement && block.parentElement.dataset.language) {
+          return normalizeLang(block.parentElement.dataset.language);
         }
+        return normalizeLang(result && result.language);
+      };
 
-        // Try to get from data attribute
-        if (!lang && block.dataset.lang) {
-          lang = block.dataset.lang.toLowerCase();
-        }
+      const addCopyButton = (pre, getCode) => {
+        if (!pre || pre.querySelector(':scope > .copy-code-btn')) return;
 
-        // Set data-language on pre for CSS label
-        if (lang && lang !== 'plaintext' && lang !== 'text') {
-          pre.setAttribute('data-language', langNames[lang] || lang);
-        }
-
-        // Add copy button
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'copy-code-btn';
         btn.innerHTML = '<span class="md-icon" style="font-size:18px">content_copy</span>';
         btn.setAttribute('aria-label', '复制代码');
         btn.title = '复制代码';
 
         btn.addEventListener('click', () => {
-          const code = block.textContent;
+          const code = getCode();
           navigator.clipboard.writeText(code).then(() => {
             btn.innerHTML = '<span class="md-icon" style="font-size:18px">check</span>';
             btn.classList.add('copied');
@@ -387,11 +441,72 @@
               btn.innerHTML = '<span class="md-icon" style="font-size:18px">content_copy</span>';
               btn.classList.remove('copied');
             }, 2000);
+          }).catch(() => {
+            btn.classList.add('copy-failed');
+            setTimeout(() => btn.classList.remove('copy-failed'), 1200);
           });
         });
 
         pre.style.position = 'relative';
         pre.appendChild(btn);
+      };
+
+      const codeBlocks = root.matches && root.matches('pre code')
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll('pre code') : []);
+
+      codeBlocks.forEach(block => {
+        const pre = block.parentElement;
+        if (!pre) return;
+        if (block.dataset.md3CodeEnhanced === 'true') {
+          addCopyButton(pre, () => block.textContent);
+          return;
+        }
+
+        let result = null;
+        if (typeof hljs !== 'undefined') {
+          try {
+            const source = block.textContent;
+            const initialLang = detectLang(block);
+
+            if (initialLang && hljs.getLanguage(initialLang)) {
+              hljs.highlightElement(block);
+            } else {
+              result = hljs.highlightAuto(source);
+              block.innerHTML = result.value;
+              block.classList.add('hljs');
+              if (result.language) block.classList.add(`language-${result.language}`);
+            }
+          } catch (e) { /* keep readable plain text */ }
+        }
+
+        const lang = detectLang(block, result);
+        if (lang && lang !== 'plaintext' && lang !== 'text') {
+          pre.setAttribute('data-language', langNames[lang] || lang);
+        }
+
+        addCopyButton(pre, () => block.textContent);
+        if (typeof hljs !== 'undefined') {
+          block.dataset.md3CodeEnhanced = 'true';
+        }
+      });
+
+      const figures = root.matches && root.matches('figure.highlight')
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll('figure.highlight') : []);
+
+      figures.forEach(figure => {
+        const codePre = figure.querySelector('.code pre') || figure.querySelector('pre');
+        if (!codePre) return;
+
+        const classLang = Array.from(figure.classList)
+          .map(normalizeLang)
+          .find(cls => cls && cls !== 'highlight');
+        if (classLang && classLang !== 'plaintext' && classLang !== 'text') {
+          figure.setAttribute('data-language', langNames[classLang] || classLang);
+        }
+
+        addCopyButton(figure, () => codePre.textContent);
       });
     }
   };
@@ -421,6 +536,7 @@
   const ImagePreview = {
     overlay: null,
     img: null,
+    previouslyFocused: null,
 
     init() {
       this.overlay = document.getElementById('image-preview');
@@ -449,14 +565,18 @@
     },
 
     show(src) {
+      if (this.overlay.style.display !== 'none') return;
+      this.previouslyFocused = document.activeElement;
       this.img.src = src;
       this.overlay.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      ScrollLock.lock();
     },
 
     hide() {
+      if (this.overlay.style.display === 'none') return;
       this.overlay.style.display = 'none';
-      document.body.style.overflow = '';
+      ScrollLock.unlock();
+      if (this.previouslyFocused) this.previouslyFocused.focus();
     }
   };
 
@@ -465,7 +585,7 @@
   // ===================================
   const SmoothScroll = {
     init() {
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      const behavior = Motion.reduced() ? 'auto' : 'smooth';
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
           const targetId = anchor.getAttribute('href').slice(1);
@@ -493,6 +613,7 @@
     data: null,
     activeIndex: -1,
     loaded: false,
+    previouslyFocused: null,
 
     init() {
       this.overlay = document.getElementById('search-overlay');
@@ -537,18 +658,26 @@
     },
 
     open() {
+      if (this.dialog.classList.contains('open')) return;
+      this.previouslyFocused = document.activeElement;
       this.overlay.classList.add('open');
       this.dialog.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      if (this.input) this.input.focus();
+      ScrollLock.lock();
+      if (this.input) {
+        requestAnimationFrame(() => {
+          window.setTimeout(() => this.input.focus(), 40);
+        });
+      }
       if (!this.loaded) this.loadData();
     },
 
     close() {
+      if (!this.dialog.classList.contains('open')) return;
       this.overlay.classList.remove('open');
       this.dialog.classList.remove('open');
-      document.body.style.overflow = '';
+      ScrollLock.unlock();
       this.activeIndex = -1;
+      if (this.previouslyFocused) this.previouslyFocused.focus();
     },
 
     async loadData() {
@@ -598,7 +727,7 @@
           const re = new RegExp('(' + kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
           excerpt = excerpt.replace(re, '<mark>$1</mark>');
         });
-        html += `<a href="${post.url}" class="md-search-result${i === 0 ? ' active' : ''}" data-index="${i}">
+        html += `<a href="${post.url}" class="md-search-result${i === 0 ? ' active' : ''}" data-index="${i}" tabindex="0">
           <div class="md-search-result__title">${this.escapeHtml(post.title || '')}</div>
           <div class="md-search-result__excerpt">${excerpt}...</div>
         </a>`;
@@ -756,21 +885,37 @@
       // We wrap the ThemeManager.setTheme with animation
       const origSetTheme = ThemeManager.setTheme.bind(ThemeManager);
       ThemeManager.setTheme = function(theme, save) {
-        // Use View Transition API if available
-        if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          const x = window.innerWidth / 2;
-          const y = 40; // approximate header button position
-          const maxRadius = Math.hypot(
-            Math.max(x, window.innerWidth - x),
-            Math.max(y, window.innerHeight - y)
-          );
+      if (document.startViewTransition && !Motion.reduced()) {
+        const rect = toggle.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const maxRadius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y)
+        );
 
-          document.startViewTransition(() => {
-            origSetTheme(theme, save);
-          });
-        } else {
+        const transition = document.startViewTransition(() => {
           origSetTheme(theme, save);
-        }
+        });
+
+        transition.ready.then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${maxRadius}px at ${x}px ${y}px)`
+              ]
+            },
+            {
+              duration: 520,
+              easing: 'cubic-bezier(0.2, 0, 0, 1)',
+              pseudoElement: '::view-transition-new(root)'
+            }
+          );
+        }).catch(() => {});
+      } else {
+        origSetTheme(theme, save);
+      }
       };
     }
   };
@@ -788,6 +933,21 @@
       // Add loading="lazy" to all post card covers
       document.querySelectorAll('.post-card__cover:not([loading])').forEach(img => {
         img.loading = 'lazy';
+      });
+    }
+  };
+
+  // ===================================
+  // Responsive Content Enhancements
+  // ===================================
+  const ResponsiveContent = {
+    init() {
+      document.querySelectorAll('.post-content table').forEach(table => {
+        if (table.parentElement?.classList.contains('table-scroll')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
       });
     }
   };
@@ -919,6 +1079,7 @@
     KeyboardShortcuts.init();
     DarkModeTransition.init();
     LazyImages.init();
+    ResponsiveContent.init();
     ScrollReveal.init();
 
     // Add entrance animation to main content
