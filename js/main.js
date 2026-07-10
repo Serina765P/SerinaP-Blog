@@ -543,11 +543,17 @@
       this.img = document.getElementById('preview-image');
       if (!this.overlay || !this.img) return;
 
-      // Click on post images to preview
-      document.querySelectorAll('.post-content img').forEach(img => {
+      // Click on post and shuoshuo images to preview
+      document.querySelectorAll('.post-content img, .shuoshuo-gallery__item img').forEach(img => {
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => {
           this.show(img.src);
+        });
+      });
+
+      document.querySelectorAll('.shuoshuo-gallery__item[data-preview-src]').forEach(button => {
+        button.addEventListener('click', () => {
+          this.show(button.getAttribute('data-preview-src'));
         });
       });
 
@@ -565,7 +571,7 @@
     },
 
     show(src) {
-      if (this.overlay.style.display !== 'none') return;
+      if (!src || this.overlay.style.display !== 'none') return;
       this.previouslyFocused = document.activeElement;
       this.img.src = src;
       this.overlay.style.display = 'flex';
@@ -577,6 +583,89 @@
       this.overlay.style.display = 'none';
       ScrollLock.unlock();
       if (this.previouslyFocused) this.previouslyFocused.focus();
+    }
+  };
+
+  // ===================================
+  // Shuoshuo Pagination
+  // ===================================
+  const ShuoshuoPagination = {
+    list: null,
+    items: [],
+    nav: null,
+    pageSize: 10,
+    totalPages: 1,
+    currentPage: 1,
+
+    init() {
+      this.list = document.querySelector('.shuoshuo-list');
+      this.nav = document.querySelector('.shuoshuo-pagination');
+      if (!this.list || !this.nav) return;
+
+      this.items = Array.from(this.list.querySelectorAll('.shuoshuo-item'));
+      this.pageSize = Number.parseInt(this.list.dataset.pageSize || '10', 10);
+      this.totalPages = Math.max(1, Math.ceil(this.items.length / this.pageSize));
+      this.currentPage = this.readPage();
+
+      this.nav.addEventListener('click', (event) => {
+        const button = event.target.closest('button');
+        if (!button) return;
+
+        const action = button.dataset.pageAction;
+        const page = button.dataset.page ? Number.parseInt(button.dataset.page, 10) : null;
+
+        if (action === 'prev') this.go(this.currentPage - 1);
+        else if (action === 'next') this.go(this.currentPage + 1);
+        else if (page) this.go(page);
+      });
+
+      this.render(false);
+    },
+
+    readPage() {
+      const params = new URLSearchParams(window.location.search);
+      const page = Number.parseInt(params.get('page') || '1', 10);
+      if (Number.isNaN(page)) return 1;
+      return Math.min(Math.max(page, 1), this.totalPages);
+    },
+
+    go(page) {
+      const next = Math.min(Math.max(page, 1), this.totalPages);
+      if (next === this.currentPage) return;
+
+      this.currentPage = next;
+      this.render(true);
+    },
+
+    render(updateUrl) {
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+
+      this.items.forEach((item, index) => {
+        item.hidden = index < start || index >= end;
+      });
+
+      this.nav.querySelectorAll('[data-page]').forEach(button => {
+        const page = Number.parseInt(button.dataset.page, 10);
+        const active = page === this.currentPage;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-current', active ? 'page' : 'false');
+      });
+
+      const prev = this.nav.querySelector('[data-page-action="prev"]');
+      const next = this.nav.querySelector('[data-page-action="next"]');
+      if (prev) prev.disabled = this.currentPage === 1;
+      if (next) next.disabled = this.currentPage === this.totalPages;
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (this.currentPage === 1) url.searchParams.delete('page');
+        else url.searchParams.set('page', String(this.currentPage));
+        window.history.pushState({}, '', url);
+
+        const behavior = Motion.reduced() ? 'auto' : 'smooth';
+        document.querySelector('.shuoshuo-page')?.scrollIntoView({ behavior, block: 'start' });
+      }
     }
   };
 
@@ -1072,6 +1161,7 @@
     CodeHighlight.init();
     MathRenderer.init();
     ImagePreview.init();
+    ShuoshuoPagination.init();
     SmoothScroll.init();
     SearchDialog.init();
     ScrollProgress.init();
